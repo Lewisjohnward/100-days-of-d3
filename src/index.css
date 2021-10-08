@@ -1,0 +1,19 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Helvetica, "Trebuchet MS", Verdana, sans-serif;
+}
+
+.chartcontainer {
+    height: 200px;
+  width: 300px;
+  background: white;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+
