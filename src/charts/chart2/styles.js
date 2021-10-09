@@ -65,6 +65,7 @@ export const Svg = styled.svg`
   line {
     stroke: gray;
     opacity: 0.6;
+    shape-rendering: crispEdges;
   }
 
   text {

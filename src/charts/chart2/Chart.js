@@ -62,7 +62,6 @@ export const Chart = () => {
     .domain(xScale.domain())
     .thresholds(timeMonths(start, stop))(data)
     .map((array) => {
-      console.log(array);
       return {
         y: array.length,
         x0: array.x0,

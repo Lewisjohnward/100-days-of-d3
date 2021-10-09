@@ -60,7 +60,7 @@ export const Svg = styled.svg`
   border-left-color: #eed;
   border-right-color: #eed;
   border-top-color: #ccb;
-  
+  font-size: 0.7em;
 
   line {
     stroke: gray;
@@ -68,21 +68,20 @@ export const Svg = styled.svg`
     shape-rendering: crispEdges;
   }
 
-  circle {
-    fill: tomato;
-    
-  }
-
   text {
     font-style: italic;
     fill: gray;
-    
   }
 
-  rect {
-    stroke: tomato;
-    fill: white;
+  .rect {
+    fill: seagreen;
+
+    .five{
+    fill : crimson;
   }
+  }
+
+  
 `;
 
 export const DescriptionContainer = styled.div`

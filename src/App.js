@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {Chart1, Chart2}  from "./charts/index.js";
+import {Chart1, Chart2, Chart3, Chart4}  from "./charts/index.js";
 import { Hello } from "./components/Hello";
 
 const BodyContainer = styled.div`
@@ -29,7 +29,7 @@ const ChartGrid = styled.div`
   justify-content: center;
   align-items: start;
   align-content: start;
-  grid-gap: 10px;
+  grid-gap: 0px;
   border-left: 1px solid black;
   padding: 1%;
 `;
@@ -66,10 +66,14 @@ function App() {
         <p>domain - takes the data range</p>
         <p>range - takes the graph dimension and returns array</p>
         <pre><code>{code}</code></pre>
+        <pre><code>xScale.ticks(4).map</code></pre>
         </NavContainer>
       <ChartGrid>
         <Chart1 />
         <Chart2 />
+        <Chart2 />
+        <Chart3/>
+        <Chart4 />
       </ChartGrid>
     </BodyContainer>
   );
