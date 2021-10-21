@@ -49,7 +49,6 @@ export const Chart = () => {
     return null;
   }
 
-  console.log(data[30]);
   const xValue = (d) => d.date;
   const yValue = (d) => d.networth;
 
@@ -78,7 +77,6 @@ export const Chart = () => {
       totalexp: totalexp * 12
     })
   })
-  console.log(fourPercentData)
 
   return (
     <Frame>
