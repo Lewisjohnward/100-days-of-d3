@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/index.css"],"names":[],"mappings":"AAAA,EACI,QAAS,CACT,SACJ,CAEA,KACI,uDACJ","file":"main.16e9d0c8.chunk.css","sourcesContent":["*{\n    margin: 0;\n    padding: 0;\n}\n\nbody {\n    font-family: Helvetica, \"Trebuchet MS\", Verdana, sans-serif;\n}\n\n"]}
