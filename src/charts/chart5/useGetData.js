@@ -2,17 +2,12 @@ import {useState, useEffect} from "react"
 import {json} from "d3"
 
 
-const url = "https://gist.githubusercontent.com/Lewisjohnward/a6ea968550aa733753f18098e021eee9/raw/a7d7bc30ded4badc5126c4351be03570ce688ce1/scheletri-words.json"
+const url = "https://gist.githubusercontent.com/Lewisjohnward/d40f11d1c3489407be05af653a7391e4/raw/0030623ef6b96674f40a2d056c95af37f2af67e3/scheletri-word-list-count.json"
 export const useGetData = () => {
     const [data, setData] = useState(null)
 
-    useEffect(() => {
-        const row = d => {
-            
-            return d
-        }
-        
-        json(url, row).then(setData)
+    useEffect(() => {        
+        json(url).then(setData)
     }, [])
 
     

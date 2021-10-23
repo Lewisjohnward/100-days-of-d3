@@ -4,8 +4,10 @@ import { TimerComponent as Timer } from "./Timer";
 import { IoIosArrowBack, IoMdHelp } from "react-icons/io";
 
 const NavContainer = styled.div`
+  position: absolute;
+  z-index: 998;
   height: 100%;
-  width: 25%;
+  width: 400px;
   overflow: hidden;
   background: white;
   padding: 25px 10px 25px 25px;
@@ -17,10 +19,14 @@ const NavContainer = styled.div`
   &.open {
     transition: all 1s ease-in;
     transform: translateX(0px);
+    position: absolute;
+    z-index: 998;
   }
   &.close {
     transition: all 1s ease-in;
     transform: translateX(-100%);
+    position: absolute;
+    z-index: 998;
   }
 `;
 
@@ -32,20 +38,20 @@ const Title = styled.div`
 
 const Icon = styled(IoMdHelp)`
   position: absolute;
-  left: 2%;
-  top: 2%;
-  z-index: 1;
-  font-size: 2em;
+  right: 5px;
+  top: 5px;
+  z-index: 999;
+  font-size: 1em;
   color: cornflowerblue;
   cursor: pointer;
   border: 1px solid rgba(0, 0, 0, 0.6);
 `;
 const CloseIcon = styled(IoIosArrowBack)`
   position: absolute;
-  left: 2%;
-  top: 2%;
-  z-index: 1;
-  font-size: 2em;
+  right: 5px;
+  top: 5px;
+  z-index: 999;
+  font-size: 1em;
   color: cornflowerblue;
   cursor: pointer;
   border: 1px solid rgba(0, 0, 0, 0.6);
@@ -65,8 +71,18 @@ const code = `const binnedData = bin()
   }
   )})`;
 
+const scaleBandCode = `
+  d3.scaleBand()
+  .domain("ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").slice(0, domainCardinality))
+  .range([40, 40 + rangeLength])
+  .paddingInner(paddingInner)
+  .paddingOuter(paddingOuter)
+  .align(align)
+  .round(enableRounding)
+  `;
+
 export const Navbar = () => {
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
   return (
     <>
       {visible ? (
@@ -90,8 +106,9 @@ export const Navbar = () => {
         <pre>
           <code>const parseTime = d3.timeParse('%Y-%m-%d');</code>
         </pre>
+        <Timer />
       </NavContainer>
-      <Timer />
+      
     </>
   );
 };

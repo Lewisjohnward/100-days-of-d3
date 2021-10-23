@@ -23,35 +23,26 @@ import {
 } from "./styles";
 
 const margin = {
-  top: 10,
-  right: 100,
-  bottom: 150,
-  left: 100,
+  top: 0,
+  right: 0,
+  bottom: 0,
+  left: 0,
 };
 
-const height = 1000;
-const width = 1800;
+const height = 900;
+const width = 900;
 
 const innerHeight = height - margin.top - margin.bottom;
 const innerWidth = width - margin.left - margin.right;
 
 export const Chart = () => {
-  const data1 = useGetData();
+  const countData = useGetData();
 
-  if (!data1) {
+  if (!countData) {
     return null;
   }
 
-  console.log(data1);
-  const count = Array.from(
-    data1.reduce((r, c) => r.set(c, (r.get(c) || 0) + 1), new Map()),
-    ([key, count]) => ({ key, count })
-  );
-
-  console.log(count.sort((a, b) => b.count - a.count));
-  console.log(Math.sqrt(count.length));
-
-  const array = range(Math.floor(Math.sqrt(count.length)));
+  const array = range(Math.floor(Math.sqrt(countData.length)));
   const data = [];
   var num = 0;
   array.forEach((d, i) => {
@@ -59,8 +50,8 @@ export const Chart = () => {
       data.push({
         a: d,
         b: j,
-        word: count[num].key,
-        count: count[num].count,
+        word: Object.getOwnPropertyNames(countData[num])[0],
+        count: countData[num][Object.getOwnPropertyNames(countData[num])[0]],
       });
       num++;
     });
@@ -75,14 +66,14 @@ export const Chart = () => {
   const xScale = scaleBand()
     .domain(data.map(xValue))
     .range([0, innerWidth])
-    .paddingInner(.2)
+    .paddingInner(0.2);
 
   console.log(xScale(5));
 
   const yScale = scaleBand()
     .domain(data.map(yValue))
     .range([innerHeight, 0])
-    .paddingInner(.1)
+    .paddingInner(0.2);
 
   const colorScale = scaleLinear()
     .domain([0, max(data, countValue)])
@@ -153,16 +144,34 @@ const Mark = ({
             />
           </g>
         ))}
-        <ToolTip
-          x={toolTipXLocation + 20}
-          y={toolTipYLocation + 20}
-          word={word}
-          count={count}
-        />
+        {tooltipVisible && (
+          <ToolTip
+            x={toolTipXLocation + 20}
+            y={toolTipYLocation + 20}
+            word={word}
+            count={count}
+          />
+        )}
       </g>
     </>
   );
 };
+
+// const Rect = () => {
+//   const [highlight, setHighlight] = useState(false);
+//   return (
+//     <g transform={`translate(${xScale(xValue(d))}, ${yScale(yValue(d))})`}>
+//       <rect
+//         height={height}
+//         width={width}
+//         fill={colorScale(countValue(d))}
+//         stroke={hightlight && "black"}
+//         onMouseEnter={() => setHighlight(true)}
+//         onMouseLeave={() => setHighlight(false)}
+//       />
+//     </g>
+//   );
+// };
 
 const ToolTip = ({ x, y, word, count }) => {
   return (

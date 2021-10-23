@@ -8,7 +8,6 @@ import { Navbar } from "./components/Navbar.js";
 const BodyContainer = styled.div`
   position: relative;
   z-index: 99;
-  display: flex;
   height: ${({ height }) => height}px;
   overflow: hidden;
 `;
@@ -27,7 +26,6 @@ const ChartGrid = styled.div`
 
 const View = styled.div`
   width: 100%;
-  padding: 1%;
 `;
 
 const Icon = styled(IoIosArrowForward)`

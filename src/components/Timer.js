@@ -3,12 +3,13 @@ import styled, { keyframes } from "styled-components";
 
 const Icon = styled.div`
   position: absolute;
+  z-index: 999;
   bottom: 1%;
   left: 1%;
   height: 200px;
   width: 200px;
   padding: 0px;
-  margin: 0px;
+  margin-bottom: 100px;
 
   color: black;
   overflow: hidden;
