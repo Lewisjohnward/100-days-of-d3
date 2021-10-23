@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useGetData } from "./useGetData";
+import { useGetData, useGetTotals } from "./useGetData";
 import {
   randomInt,
   range,
@@ -20,29 +20,46 @@ import {
   Description,
   DescriptionContainer,
   Signature,
+  TooltipRect,
+  MarkRect
 } from "./styles";
 
 const margin = {
-  top: 0,
-  right: 0,
-  bottom: 0,
-  left: 0,
+  top: 150,
+  right: 150,
+  bottom: 150,
+  left: 150,
 };
 
-const height = 900;
-const width = 900;
+const height = 600;
+const width = 600;
 
 const innerHeight = height - margin.top - margin.bottom;
 const innerWidth = width - margin.left - margin.right;
 
 export const Chart = () => {
-  const countData = useGetData();
 
-  if (!countData) {
+  return (
+    <>
+    <BoxChart />
+    </>
+  )
+}
+
+export const BoxChart = () => {
+  const countData = useGetData();
+  const totals = useGetTotals();
+
+  if (!countData || !totals) {
     return null;
   }
 
-  const array = range(Math.floor(Math.sqrt(countData.length)));
+  const filteredData = countData.filter(d => {
+     const key = Object.getOwnPropertyNames(d)
+     return d[key] >= 5
+  })
+
+  const array = range(Math.floor(Math.sqrt(filteredData.length)));
   const data = [];
   var num = 0;
   array.forEach((d, i) => {
@@ -50,14 +67,19 @@ export const Chart = () => {
       data.push({
         a: d,
         b: j,
-        word: Object.getOwnPropertyNames(countData[num])[0],
-        count: countData[num][Object.getOwnPropertyNames(countData[num])[0]],
+        word: Object.getOwnPropertyNames(filteredData[num])[0],
+        count: filteredData[num][Object.getOwnPropertyNames(filteredData[num])[0]],
       });
       num++;
     });
   });
 
   console.log(data);
+
+  
+
+
+
   const xValue = (d) => d.a;
   const yValue = (d) => d.b;
   const countValue = (d) => d.count;
@@ -66,17 +88,17 @@ export const Chart = () => {
   const xScale = scaleBand()
     .domain(data.map(xValue))
     .range([0, innerWidth])
-    .paddingInner(0.2);
+    .paddingInner(0.1);
 
   console.log(xScale(5));
 
   const yScale = scaleBand()
     .domain(data.map(yValue))
     .range([innerHeight, 0])
-    .paddingInner(0.2);
+    .paddingInner(0.1);
 
   const colorScale = scaleLinear()
-    .domain([0, max(data, countValue)])
+    .domain(extent(data, countValue))
     .range(["#3FBF3F", "#BF3F3F"]);
 
   return (
@@ -127,7 +149,7 @@ const Mark = ({
           <g
             transform={`translate(${xScale(xValue(d))}, ${yScale(yValue(d))})`}
           >
-            <rect
+            <MarkRect
               height={height}
               width={width}
               fill={colorScale(countValue(d))}
@@ -141,6 +163,7 @@ const Mark = ({
               onMouseLeave={() => {
                 setToolTipVisible(false);
               }}
+              rx="5"
             />
           </g>
         ))}
@@ -173,16 +196,22 @@ const Mark = ({
 //   );
 // };
 
+const tooltipHeight = 50;
+const tooltipWidth = 100;
 const ToolTip = ({ x, y, word, count }) => {
   return (
     <g transform={`translate(${x}, ${y})`}>
-      <rect height={100} width={100} fill={"white"} stroke="black" />
-      <text x={35} y={30} fill="black" stroke="black">
+      <TooltipRect height={tooltipHeight} width={tooltipWidth} fill={"white"} stroke="black" rx="5"/>
+      <g
+        transform={`translate(${tooltipWidth/2 - 5}, ${tooltipHeight / 2})`}
+      >
+      <text x={0} y={0} fill="black" stroke="black" style={{textAnchor: "middle"}}>
         {word}
       </text>
-      <text x={35} y={70} fill="black" stroke="black">
+      <text x={10} y={15} fill="black" stroke="black" style={{textAnchor: "end"}}>
         {count}
       </text>
+      </g>
     </g>
   );
 };

@@ -1,8 +1,6 @@
 import styled from "styled-components";
 
-export const Frame = styled.div`
-  
-`;
+export const Frame = styled.div``;
 
 export const ChartContainer = styled.div`
   position: relative;
@@ -33,4 +31,16 @@ export const Svg = styled.svg`
       fill: crimson;
     }
   }
+`;
+
+export const MarkRect = styled.rect`
+  &:hover {
+    stroke: black;
+    stroke-width: 2;
+  }
+`;
+
+export const TooltipRect = styled.rect`
+  stroke-width: 2;
+  filter: drop-shadow(10px 0px 5px rgba(0, 0, 0, 0.3));
 `;
